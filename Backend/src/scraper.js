@@ -14,8 +14,8 @@ const fs = require("fs");
     await page.waitForSelector("#user_login");
 
     // Fill in the login form and submit
-    await page.type("#user_login", "nehad.m.taha@gmail.com");
-    await page.type("#user_pass", "wpmdpis2024!!NT");
+    await page.type("#user_login", "userAccount");
+    await page.type("#user_pass", "userPassword");
     await page.click("#wp-submit");
 
     // Wait for navigation to complete after login
