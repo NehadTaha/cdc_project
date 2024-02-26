@@ -1,0 +1,99 @@
+
+.text-color {
+    color: #93bf20;
+}
+.footer {
+    background-color: #203a49;
+}
+.hr {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid white;
+}
+.magog-image-container {
+    margin: 1rem;
+    /* This replaces the m-1 class */
+}
+
+.magog-image {
+    background-image: url("../Magog.jpg");
+    min-height: 32vh;
+    min-width: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 47%;
+}
+.footer-logo,
+.table-natation {
+    width: auto;
+    height: auto;
+    
+}
+
+.btn {
+    background-color: #93bf20;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    margin-top: 5%;
+    
+}
+.btn:hover{
+    background-color: #93bf20;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        margin-top: 5%;
+        
+}
+.link-text {
+    color :#086f5f
+}
+.website-color {
+    color: #527104;
+}
+.post-hr {
+    width: 90%;
+        margin-left: auto;
+        margin-right: 50%;
+        border: 2px solid rgb(20, 48, 17);
+}
+.select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    display:inline-flexbox;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow-y:auto ;
+
+}
+/* style.css */
+@media screen and (max-width: 768px) {
+    .website-url {
+        word-wrap: break-word;
+        
+    }
+    
+}
+.website-url:hover {
+    color: rgb(144, 201, 133);
+  
+}
+
+.website-url:active {
+    color: rgb(12, 92, 59);
+    /* Change the color to your desired color */
+}
+.address-url:hover {
+    color:rgb(144, 201, 133);;
+    
+}
+.icon {
+    margin-right: 5px;
+    /* Adjust spacing between icon and text */
+}
+
+
