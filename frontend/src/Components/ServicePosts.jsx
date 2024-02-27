@@ -11,7 +11,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ServicePosts = ({ filters }) => {
   const [servicePosts, setServicePosts] = useState([]);
-  const { sector } = filters;
+  console.log("filter.municipality", filters.municipality);
+  const normalizeString = (str) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, "-")
+      .toLowerCase();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,113 +34,106 @@ const ServicePosts = ({ filters }) => {
         const data = await response.json();
         const serviceMarkers = data.markers || [];
 
-        // Extract details from HTML content using cheerio
         const parsedServicePosts = serviceMarkers.map((post) => {
-          const $ = cheerio.load(post.content.html);
-          // Regular expression to match the sector in the HTML content
-          const sectorRegex = new RegExp(`\\b${sector}\\b`, "i");
-          const contentText = $.text();
+          // Extract sectors and targets from the API data
+          const sectors = post.sectors || [];
+          const targets = post.targets || [];
+          const municipality = post.municipalities || [];
+          const sector = sectors.map((sector) => sector.slug).join(", ");
+          const target = targets.map((target) => target.slug).join(", ");
+          const mun = municipality
+            .map((municipality) => municipality.slug)
+            .join(", ");
+          console.log("mun", mun);
 
-          // Regular expressions to match different address formats
-          const addressRegex1 =
-            /<h2 class="field-content">Adresse<\/h2>\s*<\/div>\s*([^<]+)/;
-          const addressRegex2 =
-            /<h2><strong>Adresse\s*<\/strong><\/h2>\s*<span class=\\"views-field views-field-postal-code\\"><span class=\\"field-content\\">([^<]+)<\/span><\/span>\s*<span class=\\"field-content\\">/;
-          const addressRegex3 =
-            /<h2><strong>Adresse\s*<\/strong><\/h2>\s*<span class=\\"views-field views-field-postal-code\\"><span class=\\"field-content\\">([^<]+)<\/span><\/span>\s*<span class=\\"field-content\\">/;
+          // Normalize filters, sector, and target strings for comparison
+          const normalizedFilterSector = normalizeString(filters.sector);
+          const normalizedFilterTarget = normalizeString(filters.target);
+          const normalizedFilterMunicipality = normalizeString(
+            filters.municipality
+          );
+          console.log(
+            "normalizedFilterMunicipality",
+            normalizedFilterMunicipality
+          );
 
-          const addressRegex4 =
-            /<h3 class="field-content">Adresse<\/h3>\s*<\/div>\s*([^<]+)/;
+          const normalizedSector = normalizeString(sector);
+          const normalizedTarget = normalizeString(target);
+          const normalizedMunicipality = normalizeString(mun);
 
-          // Match the address using the regular expressions
-          let address = "";
+          // Check if the post matches both sector and target criteria
+          const matchesSector = normalizedSector.includes(
+            normalizedFilterSector
+          );
+          const matchesTarget = normalizedTarget.includes(
+            normalizedFilterTarget
+          );
+          const matchesMunicipality = normalizedMunicipality.includes(
+            normalizedFilterMunicipality
+          );
 
-          const addressMatch1 = post.content.html.match(addressRegex1);
-          const addressMatch2 = post.content.html.match(addressRegex2);
-          const addressMatch3 = post.content.html.match(addressRegex3);
-          const addressMatch4 = post.content.html.match(addressRegex4);
+          if (matchesSector && matchesTarget && matchesMunicipality) {
+            const $ = cheerio.load(post.content.html);
 
-          // Extract the address if a match is found
-          if (addressMatch1) {
-            address = addressMatch1[1].trim();
-          } else if (addressMatch2) {
-            address = addressMatch2[1].trim();
-          } else if (addressMatch3) {
-            address = addressMatch3[1].trim();
-          } else if (addressMatch4) {
-            address = addressMatch4[1].trim();
+            const addressRegex =
+              /(?:<h[23] class="field-content">Adresse<\/h[23]>|<h3 class="field-content">Adresse<\/h3>)\s*<\/div>\s*([^<]+)/;
+            const phoneRegex =
+              /(?:<span class="field-content"><strong>|\b)([\d\s-]+)(?:<\/strong><\/span>|$)/;
+
+            const addressMatch = post.content.html.match(addressRegex);
+            const address = addressMatch ? addressMatch[1].trim() : "";
+            const phoneMatch = post.content.html.match(phoneRegex);
+            let phoneNumber = phoneMatch ? phoneMatch[1].trim() : "";
+
+            if (!phoneNumber) {
+              phoneNumber = $("div.views-field-nothing-1").text().trim();
+            }
+
+            const website = $("a[href^='http']").attr("href") || "";
+            const emailRegex = /<a.+?href="mailto:([^"]+)"/;
+            const emailMatch = post.content.html.match(emailRegex);
+            const email = emailMatch ? emailMatch[1] : "";
+
+            return {
+              id: post.id,
+              title: post.title,
+              address: address,
+              phoneNumber: phoneNumber,
+              website: website,
+              email: email,
+            };
+          } else {
+            return null;
           }
-
-          // Regular expressions to match different phone number formats
-          const phoneRegex1 =
-            /(?:<span class="field-content"><strong>)([\d\s-]+)(?:<\/strong><\/span>)/;
-          const phoneRegex2 = /<strong>([\d\s-]+)<\/strong>/;
-          const phoneRegex3 =
-            /<div class="views-field-nothing-1"><strong>([\d\s-]+)<\/strong><\/div>/;
-
-          // Match the phone number using the regular expressions
-          let phoneNumber = "";
-
-          const phoneMatch1 = post.content.html.match(phoneRegex1);
-          const phoneMatch2 = post.content.html.match(phoneRegex2);
-          const phoneMatch3 = post.content.html.match(phoneRegex3);
-
-          // Extract the phone number if a match is found
-          if (phoneMatch1) {
-            phoneNumber = phoneMatch1[1].trim();
-          } else if (phoneMatch2) {
-            phoneNumber = phoneMatch2[1].trim();
-          } else if (phoneMatch3) {
-            phoneNumber = phoneMatch3[1].trim();
-          }
-
-          // If no phone number found using regex, use Cheerio
-          if (!phoneNumber) {
-            phoneNumber = $("div.views-field-nothing-1").text().trim();
-          }
-
-          const website = $("a[href^='http']").attr("href");
-          const emailRegex = /<a.+?href="mailto:([^"]+)"/;
-          const emailMatch = post.content.html.match(emailRegex);
-          const email = emailMatch ? emailMatch[1] : "";
-
-          return {
-            id: post.id,
-            title: post.title,
-            address: address,
-            phoneNumber: phoneNumber,
-            website: website,
-            email: email,
-          };
         });
 
-        // Sort the parsedServicePosts array alphabetically by the title property
-        const sortedServicePosts = parsedServicePosts.sort((a, b) =>
-          a.title.localeCompare(b.title)
+        const filteredServicePosts = parsedServicePosts.filter(
+          (post) => post !== null
         );
 
-        setServicePosts(sortedServicePosts);
+        setServicePosts(filteredServicePosts); // Set filtered posts
+        console.log("Service Posts Array:", filteredServicePosts.length);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [filters.sector, filters.target, filters.municipality]);
 
   return (
     <div className="row m-2 p-2 container-flex">
       {/* Map through the service posts and render each post */}
-      {servicePosts.map((post, index) => (
-        <div key={index}>
+      {servicePosts.map((post) => (
+        <div key={post.id}>
           <h2>{post.title}</h2>
           {/* Render other extracted details */}
-          <p>
-            <span className="icon">
-              <FontAwesomeIcon icon={faMapMarkerAlt} />
-            </span>
-            {post.address && <span className="fs-6 fw-bold">Adresse: </span>}
-            {post.address && (
+          {post.address && (
+            <p>
+              <span className="icon">
+                <FontAwesomeIcon icon={faMapMarkerAlt} />
+              </span>
+              <span className="fs-6 fw-bold">Adresse: </span>
               <a
                 className="link-text address-url"
                 href={`https://www.google.com/maps/search/?api=1&query=${post.address}`}
@@ -142,8 +142,8 @@ const ServicePosts = ({ filters }) => {
               >
                 {post.address}
               </a>
-            )}
-          </p>
+            </p>
+          )}
           {post.phoneNumber && (
             <p>
               <span className="icon">

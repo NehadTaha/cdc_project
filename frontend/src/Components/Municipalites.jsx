@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/style.css";
 
-const Municipalities = () => {
+const Municipalities = ({ handleSelectorChange }) => {
   const [municipalities, setMunicipalities] = useState([]);
 
   useEffect(() => {
@@ -31,11 +31,16 @@ const Municipalities = () => {
 
     fetchData();
   }, []);
+  const handleChange = (event) => {
+    const selectedValue = event.target.value; // Correct way to access the selected value
+    console.log("Selected municipality value:", selectedValue);
+    handleSelectorChange(selectedValue);
+  };
 
   return (
     <div>
       {/* Municipalities Dropdown */}
-      <select className="select">
+      <select className="select" onChange={handleChange}>
         <option value="">Municipalité(s)</option>
         {municipalities.map((municipality, index) => (
           <option key={index} value={municipality.slug}>

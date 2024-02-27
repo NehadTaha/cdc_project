@@ -32,7 +32,7 @@ const Targets = ({ handleSelectorChange }) => {
     console.log("Selected target value:", event.target.value);
 
     // Call the handleSelectorChange function with the selected value
-    handleSelectorChange("target", event.target.value);
+    handleSelectorChange(event.target.value);
   };
 
   return (

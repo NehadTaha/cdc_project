@@ -1,5 +1,9 @@
+import puppeteer from "puppeteer";
+import fs from "fs";
+import {userLogin, userPass} from "./constants.js";
 const puppeteer = require("puppeteer");
 const fs = require("fs");
+
 
 (async () => {
   const browser = await puppeteer.launch();
@@ -14,8 +18,8 @@ const fs = require("fs");
     await page.waitForSelector("#user_login");
 
     // Fill in the login form and submit
-    await page.type("#user_login", "nehad.m.taha@gmail.com");
-    await page.type("#user_pass", "wpmdpis2024!!NT");
+    await page.type("#user_login", userLogin);
+    await page.type("#user_pass",   userPass);
     await page.click("#wp-submit");
 
     // Wait for navigation to complete after login

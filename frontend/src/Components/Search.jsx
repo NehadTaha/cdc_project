@@ -1,31 +1,26 @@
+// Search.jsx
+
 import React, { useState } from "react";
 import ServiceSector from "./Service_sector";
 import Targets from "./Targets";
 import Municipalities from "./Municipalites";
-import ServicePosts from "./ServicePosts";
 
 const Search = ({ handleFilter }) => {
-  // State to track selected options
   const [selectedOptions, setSelectedOptions] = useState({
     sector: "",
     target: "",
     municipality: "",
   });
 
-  // Function to handle changes in selected options
   const handleOptionChange = (name, value) => {
     setSelectedOptions((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-    console.log(selectedOptions);
   };
 
-  // Function to handle filter button click
   const handleFilterClick = () => {
-    // Call the handleFilter function passed from the parent component
     handleFilter(selectedOptions);
-    console.log(selectedOptions);
   };
 
   return (
@@ -36,6 +31,8 @@ const Search = ({ handleFilter }) => {
             handleSelectorChange={(value) =>
               handleOptionChange("sector", value)
             }
+            selectedSector={selectedOptions.sector}
+            handleFilter={handleFilter} // Pass handleFilter function
           />
         </div>
         <div className="col-lg-3 col-md-6 mb-3">
@@ -43,6 +40,8 @@ const Search = ({ handleFilter }) => {
             handleSelectorChange={(value) =>
               handleOptionChange("target", value)
             }
+            selectedTarget={selectedOptions.target}
+            handleFilter={handleFilter} // Pass handleFilter function
           />
         </div>
         <div className="col-lg-3 col-md-12 mb-3">
@@ -50,6 +49,8 @@ const Search = ({ handleFilter }) => {
             handleSelectorChange={(value) =>
               handleOptionChange("municipality", value)
             }
+            selectedMunicipality={selectedOptions.municipality}
+            handleFilter={handleFilter} // Pass handleFilter function
           />
         </div>
         <div className="col-lg-2 col-md-12 mb-3">
@@ -61,8 +62,6 @@ const Search = ({ handleFilter }) => {
           </button>
         </div>
       </div>
-      {/* Render the ServicePosts component here */}
-      <ServicePosts filters={selectedOptions} />
     </div>
   );
 };
