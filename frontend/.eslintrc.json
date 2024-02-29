@@ -1,0 +1,36 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": "plugin:react/recommended",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ignorePatterns": [
+      "node_modules/",
+      "build/",
+      "dist/",
+      "**/*.css",
+      "**/*.png", // Ignore PNG files
+      "**/*.jpg",
+      "**/*.jpeg",
+      "**/*.gif",
+      "**/*.svg",
+      "**/*.json",
+      "**/*.html",
+      "**/*.md"
+    ]
+  },
+  "plugins": ["react"],
+  "rules": {
+    "eqeqeq": "warn",
+    "indent": ["warn", 4],
+    "linebreak-style": ["warn", "unix"],
+    "quotes": ["warn", "double"],
+    "semi": ["warn", "always"],
+    "no-unused-vars": "warn",
+    "eslint-plugin-import/export": "off"
+  }
+}

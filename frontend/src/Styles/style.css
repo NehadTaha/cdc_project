@@ -37,16 +37,23 @@
     padding: 10px 20px;
     text-align: center;
     margin-top: 5%;
+    color: white;
+  
     
 }
 .btn:hover{
-    background-color: #93bf20;
-        border: none;
-        padding: 10px 20px;
-        text-align: center;
-        margin-top: 5%;
+    background-color: #3e5b07cb;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    margin-top: 5%;
+    color:white;
+    
+    
         
 }
+
+
 .link-text {
     color :#086f5f
 }
@@ -79,12 +86,12 @@
     
 }
 .website-url:hover {
-    color: rgb(144, 201, 133);
+    color: rgb(13, 58, 4);
   
 }
 
-.website-url:active {
-    color: rgb(12, 92, 59);
+.website-url:active,.see-services:active {
+    color: rgb(35, 163, 110);
     /* Change the color to your desired color */
 }
 .address-url:hover {
