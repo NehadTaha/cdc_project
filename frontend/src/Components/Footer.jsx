@@ -6,7 +6,7 @@ import TableNatation from "../TableNatation.png";
 
 const Footer = () => {
     return (
-        <footer className="footer">
+        <footer className="footer" data-testid="footer">
             <div className="container-flex text-white text-center fs-4 align-items-center justify-content-center">
                 <div className="row">
                     <div className="col-12 col-sm-6 p-5">
@@ -62,7 +62,7 @@ const Footer = () => {
                             ></img>
                         </a>
                     </div>
-                    <div className=" col-5 col-md-2 p-2 col-sm-5 fs-3 p-3 ">
+                    <div className=" col-5 col-md-2 p-2 col-sm-5 fs-6 p-3 ">
                         <a
                             href="https://www.facebook.com/cdcmemphremagog"
                             target="_blank"
@@ -75,7 +75,7 @@ const Footer = () => {
                             />
                         </a>
                     </div>
-                    <div className="col-5 col-md-2 p-2 col-sm-5 fs-3 ms-3 p-3">
+                    <div className="col-5 col-md-2 p-2 col-sm-5 fs-6 ms-3 p-3">
                         <a
                             href="https://www.linkedin.com/company/89222716/admin/feed/posts/"
                             target="_blank"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/style.css";
 import PropTypes from "prop-types";
+
 const Municipalities = ({ handleSelectorChange }) => {
     const [municipalities, setMunicipalities] = useState([]);
     Municipalities.propTypes = {
@@ -35,23 +36,25 @@ const Municipalities = ({ handleSelectorChange }) => {
         fetchData();
     }, []);
     const handleChange = (event) => {
-        const selectedValue = event.target.value; // Correct way to access the selected value
-       
+        const selectedValue = event.target.value; 
+
         handleSelectorChange(selectedValue);
     };
 
     return (
-        <div>
-            {/* Municipalities Dropdown */}
-            <select className="select" onChange={handleChange}>
-                <option value="">Municipalité(s)</option>
-                {municipalities.map((municipality, index) => (
-                    <option key={index} value={municipality.slug}>
-                        {municipality.title}
-                    </option>
-                ))}
-            </select>
-        </div>
+      <div>
+        {/* Municipalities Dropdown */}
+        <select className="select" onChange={handleChange}>
+          <option value="" data-testid="select-municipality">
+            Municipalité(s)
+          </option>
+          {municipalities.map((municipality, index) => (
+            <option key={index} value={municipality.slug}>
+              {municipality.title}
+            </option>
+          ))}
+        </select>
+      </div>
     );
 };
 

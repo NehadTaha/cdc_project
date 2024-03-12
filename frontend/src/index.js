@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 //import Home from "./Pages/Home";
 import reportWebVitals from "./reportWebVitals";
-import HomePage from "./Pages/HomePage";
+import HomePage from "./Pages/Home";
 
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
