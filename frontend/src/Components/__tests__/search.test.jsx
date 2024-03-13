@@ -10,7 +10,7 @@ describe("Search component", () => {
     console.error = jest.fn();
     test("render the search component", () => {
         render(<Search />);
-        // expect to see 3 the 3 components
+        // expect to see 3 components
         expect(screen.getByText("Municipalité(s)")).toBeInTheDocument();
         expect(screen.getByText("Secteurs d'activité")).toBeInTheDocument();
         expect(screen.getByText("Groupe Cible")).toBeInTheDocument();

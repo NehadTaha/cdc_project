@@ -42,19 +42,19 @@ const Municipalities = ({ handleSelectorChange }) => {
     };
 
     return (
-      <div>
-        {/* Municipalities Dropdown */}
-        <select className="select" onChange={handleChange}>
-          <option value="" data-testid="select-municipality">
+        <div>
+            {/* Municipalities Dropdown */}
+            <select className="select" onChange={handleChange}>
+                <option value="" data-testid="select-municipality">
             Municipalité(s)
-          </option>
-          {municipalities.map((municipality, index) => (
-            <option key={index} value={municipality.slug}>
-              {municipality.title}
-            </option>
-          ))}
-        </select>
-      </div>
+                </option>
+                {municipalities.map((municipality, index) => (
+                    <option key={index} value={municipality.slug}>
+                        {municipality.title}
+                    </option>
+                ))}
+            </select>
+        </div>
     );
 };
 
