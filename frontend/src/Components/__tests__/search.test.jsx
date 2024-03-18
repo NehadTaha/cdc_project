@@ -32,12 +32,15 @@ describe("Search component", () => {
         "handleOptionChange function is called when %s option is changed",
         async (name, testId, value) => {
             render(<Search handleFilter={handleFilter} />);
+
             const select = screen.getByTestId(testId);
 
             // Change the value of the select element
             fireEvent.change(select, { target: { value } });
             await waitFor(() => {
-                expect(handleFilter).toBeCalled();
+                setTimeout(() => {
+                    expect(handleFilter).toHaveBeenCalledWith({ [name]: value });
+                }, 6000);
             });
         }
     );

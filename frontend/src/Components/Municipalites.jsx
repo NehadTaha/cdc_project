@@ -42,7 +42,7 @@ const Municipalities = ({ handleSelectorChange }) => {
     };
 
     return (
-        <div>
+        <div data-testid="service-municipalities">
             {/* Municipalities Dropdown */}
             <select className="select" onChange={handleChange}>
                 <option value="" data-testid="select-municipality">

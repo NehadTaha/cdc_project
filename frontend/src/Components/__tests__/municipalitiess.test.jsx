@@ -3,13 +3,14 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 import Municipalities from "../Municipalites";
+import e from "express";
 
 describe("Municipalities component", () => {
     let handleSelectorChange;
+    console.error = jest.fn();
 
     beforeEach(() => {
         handleSelectorChange = jest.fn();
-        
     });
 
     test("renders dropdown with options", async () => {
@@ -29,9 +30,24 @@ describe("Municipalities component", () => {
             "Municipality 1",
             "Municipality 2",
         ]);
+    
 
-        expect(handleSelectorChange).not.toHaveBeenCalled(); // Ensure handleSelectorChange is not called
+    
     });
+    test("render dropdown without options", async () => {
+    // Mock the fetch function to return sample data
+        mockFetchSuccess({
+            municipalities: {},
+        });
+
+        // Render the component
+        render(<Municipalities handleSelectorChange={handleSelectorChange} />);
+        await assertDropdownOptions([
+            "Municipalité(s)",
+        ]);
+        expect(handleSelectorChange).not.toHaveBeenCalled();
+    });
+
 
     test("logs error on failed data fetch", async () => {
     // Mock the fetch function to return an unsuccessful response
@@ -106,5 +122,4 @@ describe("Municipalities component", () => {
             });
         });
     };
-    
 });

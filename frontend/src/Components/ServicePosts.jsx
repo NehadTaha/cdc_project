@@ -160,7 +160,7 @@ const ServicePosts = ({ filters }) => {
                         target="_blank"
                         rel="noreferrer"
                     >
-              View Service
+            View Service
                     </a>
                     <hr className="post-hr" />
                 </div>

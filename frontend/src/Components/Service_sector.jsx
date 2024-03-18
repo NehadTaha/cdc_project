@@ -37,7 +37,7 @@ const ServiceSector = ({ handleSelectorChange }) => {
     };
 
     return (
-        <div data-testid="service-posts">
+        <div data-testid="service-sectors">
             {/* Service Sector Dropdown */}
             <select
                 className="select"

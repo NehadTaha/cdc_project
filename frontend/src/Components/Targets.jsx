@@ -37,7 +37,7 @@ const Targets = ({ handleSelectorChange }) => {
     };
 
     return (
-        <div>
+        <div data-testid="service-targets">
             {/* Target Dropdown */}
             <select className="select" onChange={handleChange}>
                 <option data-testid="select-target">Groupe Cible</option>
