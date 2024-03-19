@@ -20,7 +20,6 @@ describe("Home component", () => {
         expect(screen.getByTestId("footer")).toBeInTheDocument();
     });
     test("hadles filtering", async () => {
-        const handleFilter = jest.fn();
         render(<Home />);
         fireEvent.click(screen.getByText("Filtrer"));
         await waitFor(() => {
