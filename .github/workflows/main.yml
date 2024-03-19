@@ -1,0 +1,42 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  install-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: npm install
+
+  lint-job:
+    runs-on: ubuntu-latest
+    needs: install-job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Run linting
+        run: npm run lint
+
+  build-job:
+    runs-on: ubuntu-latest
+    needs: lint-job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build/
