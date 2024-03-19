@@ -1,7 +1,6 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Home from "../../Pages/Home.jsx";
-import Search from "../Search.jsx";
 
 describe("Home component", () => {
     console.error = jest.fn();
@@ -20,5 +19,14 @@ describe("Home component", () => {
         // Check if the footer is rendered
         expect(screen.getByTestId("footer")).toBeInTheDocument();
     });
- 
+    test("hadles filtering", async () => {
+        const handleFilter = jest.fn();
+        render(<Home />);
+        fireEvent.click(screen.getByText("Filtrer"));
+        await waitFor(() => {
+            setTimeout(() => {
+                expect(screen.getByText("Filtrer par catégorie")).toBeInTheDocument();
+            }, 5000);
+        });
+    });
 });
