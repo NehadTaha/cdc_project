@@ -11,9 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Install dependencies
-        run: cd cdc_project/frontend && npm install
+        run: npm install
 
   lint-job:
     runs-on: ubuntu-latest
@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Run linting
         run: npm run lint
 
@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Build project
         run: npm run build
 
