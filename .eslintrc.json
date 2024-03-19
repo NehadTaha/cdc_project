@@ -21,7 +21,9 @@
       "**/*.svg",
       "**/*.json",
       "**/*.html",
-      "**/*.md"
+      "**/*.md",
+      //ignore .ts and .tsx files
+      "**/*.ts"
     ]
   },
   "plugins": ["react"],
@@ -31,7 +33,6 @@
     "linebreak-style": ["warn", "unix"],
     "quotes": ["warn", "double"],
     "semi": ["warn", "always"],
-    "no-unused-vars": "warn",
-    "eslint-plugin-import/export": "off"
+    "no-unused-vars": "warn"
   }
 }
