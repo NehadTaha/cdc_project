@@ -1,6 +1,6 @@
 import { CapacitorConfig } from "@capacitor/cli";
 
-const config = {
+const config: CapacitorConfig = {
     appId: "com.example.app",
     appName: "RÉPERTOIRE DES ORGANISMES",
     webDir: "build",
