@@ -92,9 +92,9 @@ const ServicePosts = ({ filters }) => {
 
         fetchData();
 
-        const intervalId = setInterval(fetchData, 10 * 60 * 1000);
+        // const intervalId = setInterval(fetchData, 10 * 60 * 1000);
 
-        return () => clearInterval(intervalId);
+    // return () => clearInterval(intervalId);
     }, [filters.sector, filters.target, filters.municipality]);
 
     return (
@@ -160,7 +160,7 @@ const ServicePosts = ({ filters }) => {
                         target="_blank"
                         rel="noreferrer"
                     >
-              View Service
+            View Service
                     </a>
                     <hr className="post-hr" />
                 </div>
