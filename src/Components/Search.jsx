@@ -18,6 +18,9 @@ const Search = ({ handleFilter }) => {
         setSelectedOptions((prevState) => ({
             ...prevState,
             [name]: value,
+            // Reset other filters when changing an option
+            ...(name === "sector" && { target: "" }),
+            ...(name === "target" && { municipality: "" }),
         }));
     };
 
@@ -26,7 +29,7 @@ const Search = ({ handleFilter }) => {
     };
 
     return (
-        <div className="container-fluid pt-2"data-testid="search-component">
+        <div className="container-fluid pt-2" data-testid="search-component">
             <div className="row pt-3 px-2">
                 <div className="col-lg-4 col-md-6 mb-3">
                     <ServiceSector

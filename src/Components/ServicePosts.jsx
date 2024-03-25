@@ -95,7 +95,7 @@ const ServicePosts = ({ filters }) => {
         // const intervalId = setInterval(fetchData, 10 * 60 * 1000);
 
     // return () => clearInterval(intervalId);
-    }, [filters.sector, filters.target, filters.municipality]);
+    }, [filters.sector, filters.target, filters.municipality, filters]);
 
     return (
         <div className="row m-2 p-2 container-flex" data-testid="service-post">

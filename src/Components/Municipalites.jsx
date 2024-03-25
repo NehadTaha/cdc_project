@@ -36,7 +36,7 @@ const Municipalities = ({ handleSelectorChange }) => {
         fetchData();
     }, []);
     const handleChange = (event) => {
-        const selectedValue = event.target.value; 
+        const selectedValue = event.target.value;
 
         handleSelectorChange(selectedValue);
     };
@@ -46,7 +46,7 @@ const Municipalities = ({ handleSelectorChange }) => {
             {/* Municipalities Dropdown */}
             <select className="select" onChange={handleChange}>
                 <option value="" data-testid="select-municipality">
-            Municipalité(s)
+          Municipalité(s)
                 </option>
                 {municipalities.map((municipality, index) => (
                     <option key={index} value={municipality.slug}>
