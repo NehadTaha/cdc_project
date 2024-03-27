@@ -1,0 +1,8 @@
+{
+  "appId": "com.cdcmemphremagog.aucoeurdememphre",
+  "appName": "Au coeur de Memphré",
+  "webDir": "build",
+  "server": {
+    "androidScheme": "https"
+  }
+}
