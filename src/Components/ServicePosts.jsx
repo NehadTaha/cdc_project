@@ -42,10 +42,15 @@ const ServicePosts = ({ filters }) => {
                     const normalizedTarget = target.toLowerCase();
                     const normalizedMunicipality = mun.toLowerCase();
 
+                    const filterSector = filters.sector.toLowerCase();
+                    const filterTarget = filters.target.toLowerCase();
+                    const filterMunicipality = filters.municipality.toLowerCase();
+
                     if (
-                        normalizedSector.includes(filters.sector.toLowerCase()) &&
-            normalizedTarget.includes(filters.target.toLowerCase()) &&
-            normalizedMunicipality.includes(filters.municipality.toLowerCase())
+                        (!filterSector || normalizedSector.includes(filterSector)) &&
+            (!filterTarget || normalizedTarget.includes(filterTarget)) &&
+            (!filterMunicipality ||
+              normalizedMunicipality.includes(filterMunicipality))
                     ) {
                         const $ = cheerio.load(post.content.html);
                         const addressRegex =
@@ -91,8 +96,6 @@ const ServicePosts = ({ filters }) => {
         };
 
         fetchData();
-
-        // const intervalId = setInterval(fetchData, 10 * 60 * 1000);
 
     // return () => clearInterval(intervalId);
     }, [filters.sector, filters.target, filters.municipality, filters]);
